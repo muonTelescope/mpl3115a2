@@ -1,0 +1,15 @@
+{
+  "name": "mpl3115a2",
+  "version": "1.0.0",
+  "description": "NXP MPL3115A2 Pressure and Temprature sensor library.",
+  "main": "mpl3115a2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sawaiz",
+  "license": "ISC",
+  "dependencies": {
+    "raspi": "^3.0.5",
+    "raspi-i2c": "^5.0.3"
+  }
+}
