@@ -12,16 +12,18 @@ module.exports = class MPL3115A2 {
         var data = {};
 
         var i2c = new I2C();
+        // Clear CTRL_REG_1
+        i2c.writeByteSync(this.SLAVE_ADDR, 0x26, 0x00);
         // Set oversmapling to 128x
         i2c.writeByteSync(this.SLAVE_ADDR, 0x26, 0x38);
-        // Begin acuiring
-        i2c.writeByteSync(this.SLAVE_ADDR, 0x26, 0x39);
         //Enable data flags
         i2c.writeByteSync(this.SLAVE_ADDR, 0x13, 0x07);
+        // Begin acuiring, single shot
+        i2c.writeByteSync(this.SLAVE_ADDR, 0x26, 0x3A);
         var dataReady = false;
         while(!dataReady){
             if(i2c.readByteSync(this.SLAVE_ADDR, 0x00) !=0 ){
-                  var response = i2c.readSync(this.SLAVE_ADDR, undefined, 6);
+                  var response = i2c.readSync(this.SLAVE_ADDR, 0x01 , 6);
                   data.pressure_H = response.readUInt8(1);
                   data.pressure_C = response.readUInt8(2);
                   data.pressure_L = response.readUInt8(3);
